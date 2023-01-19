@@ -1,13 +1,11 @@
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-   alias(libs.plugins.android.application)
+    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.ksp)
-
-
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -25,48 +23,58 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+        kapt {
+            correctErrorTypes = true
+        }
 
     }
 
 
 
     buildTypes {
+        getByName("debug"){
+
+        }
         getByName("release") {
-            isMinifyEnabled= false
-            proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility =  JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        compose= true
-        aidl=false
-        buildConfig=false
-        renderScript=false
-        shaders=false
+        compose = true
+        dataBinding=true
+        aidl = false
+        buildConfig = true
+        renderScript = false
+        shaders = false
     }
     composeOptions {
-        kotlinCompilerExtensionVersion =libs.versions.androidxComposeCompiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
     //Compose
-
-
-
-
+    implementation(libs.kotlin.serialization.json)
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -98,6 +106,15 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    //networking
+    implementation(libs.com.squareup.retrofit2)
+    implementation(libs.com.squareup.okhttp3.interceptor)
+    implementation(libs.com.squareup.retrofit2.gson)
+    implementation(libs.com.jakewharton.timber)
+
+    // coil
+    implementation(libs.io.coil.kt.coil)
+    implementation(libs.io.coil.kt.coil.compose)
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
     // Instrumented tests
@@ -109,7 +126,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 
     // Instrumented tests: jUnit rules and runners
-    androidTestImplementation (composeBom)
+    androidTestImplementation(composeBom)
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
