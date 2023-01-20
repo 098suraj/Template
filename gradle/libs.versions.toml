@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.1.0-alpha01"
+androidGradlePlugin = "7.4.0"
 androidxCore = "1.9.0"
 androidxLifecycle = "2.5.1"
 androidxActivity = "1.6.1"
@@ -22,6 +22,8 @@ okhttpVersion = '5.0.0-alpha.3'
 timberVersion = '5.0.1'
 coilVersion  = '2.2.2'
 kotlinSerialization="1.4.1"
+secretsVersion='2.0.1'
+flowVersion="0.29.0-alpha"
 
 [libraries]
 androidx-compose-bom="androidx.compose:compose-bom:2022.12.00"
@@ -59,6 +61,8 @@ com-jakewharton-timber={module="com.jakewharton.timber:timber",version.ref="timb
 io-coil-kt-coil={module ="io.coil-kt:coil",version.ref="coilVersion"}
 io-coil-kt-coil-compose={module ="io.coil-kt:coil-compose",version.ref="coilVersion"}
 kotlin-serialization-json={module="org.jetbrains.kotlinx:kotlinx-serialization-json",version.ref="kotlinSerialization"}
+secrets={module="com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin",version.ref="secretsVersion"}
+flow-Layout={module="com.google.accompanist:accompanist-flowlayout",version.ref="flowVersion"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
@@ -67,3 +71,4 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 hilt-gradle = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+secrets={id="com.google.android.libraries.mapsplatform.secrets-gradle-plugin",version.ref="secretsVersion"}

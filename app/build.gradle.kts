@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.secrets)
     alias(libs.plugins.kotlin.kapt)
 }
 
@@ -75,6 +76,8 @@ android {
 dependencies {
     //Compose
     implementation(libs.kotlin.serialization.json)
+    implementation(libs.flow.layout)
+    implementation(libs.secrets)
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
