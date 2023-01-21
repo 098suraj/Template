@@ -24,6 +24,7 @@ coilVersion  = '2.2.2'
 kotlinSerialization="1.4.1"
 secretsVersion='2.0.1'
 flowVersion="0.29.0-alpha"
+pagerVersion="0.13.0"
 
 [libraries]
 androidx-compose-bom="androidx.compose:compose-bom:2022.12.00"
@@ -63,6 +64,10 @@ io-coil-kt-coil-compose={module ="io.coil-kt:coil-compose",version.ref="coilVers
 kotlin-serialization-json={module="org.jetbrains.kotlinx:kotlinx-serialization-json",version.ref="kotlinSerialization"}
 secrets={module="com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin",version.ref="secretsVersion"}
 flow-Layout={module="com.google.accompanist:accompanist-flowlayout",version.ref="flowVersion"}
+pager={module="com.google.accompanist:accompanist-pager",version.ref="pagerVersion"}
+pager-indicator={module="com.google.accompanist:accompanist-pager-indicators",version.ref="pagerVersion"}
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }

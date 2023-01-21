@@ -78,6 +78,9 @@ dependencies {
     implementation(libs.kotlin.serialization.json)
     implementation(libs.flow.layout)
     implementation(libs.secrets)
+    implementation(libs.pager)
+    implementation(libs.pager.indicator)
+
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

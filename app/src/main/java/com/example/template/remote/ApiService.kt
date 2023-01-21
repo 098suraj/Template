@@ -29,7 +29,7 @@ interface ApiService {
     suspend fun getAlbum(
         @Query("method") method: String = "tag.gettopalbums",
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
-        @Query("tag") tag: String = Constants.tag,
+        @Query("tag") tag: String ,
         @Query("format") format: String = "json",
 
         ): Response<AlbumModel>
@@ -38,7 +38,7 @@ interface ApiService {
     suspend fun getArtist(
         @Query("method") method: String = "tag.gettopartists",
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
-        @Query("tag") tag: String = Constants.tag,
+        @Query("tag") tag: String,
         @Query("format") format: String = "json",
     ): Response<ArtistModel>
 
@@ -46,7 +46,7 @@ interface ApiService {
     suspend fun getTracks(
         @Query("method") method: String = "tag.gettoptracks",
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
-        @Query("tag") tag: String = Constants.tag,
+        @Query("tag") tag: String ,
         @Query("format") format: String = "json",
     ): Response<TrackModel>
 
@@ -54,7 +54,7 @@ interface ApiService {
     suspend fun getInfo(
         @Query("method") method: String = "tag.getinfo",
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
-        @Query("tag") tag: String = Constants.tag,
+        @Query("tag") tag: String,
         @Query("format") format: String = "json",
     ): Response<InfoModel>
 

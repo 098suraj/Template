@@ -1,115 +1,102 @@
 package com.example.template.data.artistModel
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class ArtistInfoModel(
-    @SerialName("artist")
+    @SerializedName("artist")
     val artist: Artist
 ) {
-    @Serializable
     data class Artist(
-        @SerialName("bio")
+        @SerializedName("bio")
         val bio: Bio,
-        @SerialName("image")
+        @SerializedName("image")
         val image: List<Image>,
-        @SerialName("mbid")
+        @SerializedName("mbid")
         val mbid: String,
-        @SerialName("name")
+        @SerializedName("name")
         val name: String,
-        @SerialName("ontour")
+        @SerializedName("ontour")
         val ontour: String,
-        @SerialName("similar")
+        @SerializedName("similar")
         val similar: Similar,
-        @SerialName("stats")
+        @SerializedName("stats")
         val stats: Stats,
-        @SerialName("streamable")
+        @SerializedName("streamable")
         val streamable: String,
-        @SerialName("tags")
+        @SerializedName("tags")
         val tags: Tags,
-        @SerialName("url")
+        @SerializedName("url")
         val url: String
     ) {
-        @Serializable
         data class Bio(
-            @SerialName("content")
+            @SerializedName("content")
             val content: String,
-            @SerialName("links")
+            @SerializedName("links")
             val links: Links,
-            @SerialName("published")
+            @SerializedName("published")
             val published: String,
-            @SerialName("summary")
+            @SerializedName("summary")
             val summary: String
         ) {
-            @Serializable
             data class Links(
-                @SerialName("link")
+                @SerializedName("link")
                 val link: Link
             ) {
-                @Serializable
                 data class Link(
-                    @SerialName("href")
+                    @SerializedName("href")
                     val href: String,
-                    @SerialName("rel")
+                    @SerializedName("rel")
                     val rel: String,
-                    @SerialName("#text")
+                    @SerializedName("#text")
                     val text: String
                 )
             }
         }
 
-        @Serializable
         data class Image(
-            @SerialName("size")
+            @SerializedName("size")
             val size: String,
-            @SerialName("#text")
+            @SerializedName("#text")
             val text: String
         )
 
-        @Serializable
         data class Similar(
-            @SerialName("artist")
+            @SerializedName("artist")
             val artist: List<Artist>
         ) {
-            @Serializable
             data class Artist(
-                @SerialName("image")
+                @SerializedName("image")
                 val image: List<Image>,
-                @SerialName("name")
+                @SerializedName("name")
                 val name: String,
-                @SerialName("url")
+                @SerializedName("url")
                 val url: String
             ) {
-                @Serializable
                 data class Image(
-                    @SerialName("size")
+                    @SerializedName("size")
                     val size: String,
-                    @SerialName("#text")
+                    @SerializedName("#text")
                     val text: String
                 )
             }
         }
 
-        @Serializable
         data class Stats(
-            @SerialName("listeners")
+            @SerializedName("listeners")
             val listeners: String,
-            @SerialName("playcount")
+            @SerializedName("playcount")
             val playcount: String
         )
 
-        @Serializable
         data class Tags(
-            @SerialName("tag")
+            @SerializedName("tag")
             val tag: List<Tag>
         ) {
-            @Serializable
             data class Tag(
-                @SerialName("name")
+                @SerializedName("name")
                 val name: String,
-                @SerialName("url")
+                @SerializedName("url")
                 val url: String
             )
         }

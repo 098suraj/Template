@@ -1,6 +1,5 @@
 package com.example.template.screen
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,18 +33,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.template.data.mainModel.TagModel
+import com.example.template.navigation.Screen
 import com.example.template.ui.theme.TemplateTheme
+import com.example.template.utils.Constants
 import com.example.template.utils.mainScreen.AppState
 import com.example.template.viewModel.MainViewModel
 import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun TagScreen(viewModel: MainViewModel = hiltViewModel<MainViewModel>()) {
-    var isExpanded by remember { mutableStateOf(false) }
+fun TagScreen(navHostController: NavHostController,viewModel: MainViewModel = hiltViewModel<MainViewModel>()) {
     val genreList = viewModel.getTag().collectAsState(initial = AppState.Empty).value
-
+    val isExpanded =viewModel.getExpanded().collectAsState(initial = false).value
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background
@@ -69,7 +70,7 @@ fun TagScreen(viewModel: MainViewModel = hiltViewModel<MainViewModel>()) {
             Spacer(modifier = Modifier.height(20.dp))
             Row(
                 modifier = Modifier.clickable {
-                    isExpanded = !isExpanded
+                   viewModel.setExpanded()
                 },
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -100,10 +101,6 @@ fun TagScreen(viewModel: MainViewModel = hiltViewModel<MainViewModel>()) {
                 }
 
                 is AppState.Success -> {
-
-                    Timber.d("List Size", genreList.data.size)
-
-
                     FlowRow(
                         modifier = Modifier
                             .fillMaxSize()
@@ -111,16 +108,15 @@ fun TagScreen(viewModel: MainViewModel = hiltViewModel<MainViewModel>()) {
                         maxItemsInEachRow = 3,
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        AnimatedVisibility(visible = isExpanded) {
-                            genreList.data.forEach {
-                                var tagModel = it as TagModel.Toptags.Tag
-                                Timber.tag("GetTag").d(tagModel.name)
-                                GenreTile(Modifier, tagModel = tagModel)
-
+                        when (isExpanded) {
+                            true -> {
+                                Tiles(genreList.data, navHostController)
                             }
-
+                           false ->{
+                               val size by remember { mutableStateOf((genreList.data.size) / 2) }
+                               Tiles(data = genreList.data.subList(0, (size + 1) / 2), navHostController)
+                            }
                         }
-
 
                     }
 
@@ -137,16 +133,27 @@ fun TagScreen(viewModel: MainViewModel = hiltViewModel<MainViewModel>()) {
     }
 }
 
+@Composable
+fun Tiles(data: List<*>, navHostController: NavHostController) {
+    data.forEachIndexed { index, any ->
+        var tagModel = any as TagModel.Toptags.Tag
+        GenreTile(Modifier, tagModel = tagModel, navHostController)
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GenreTile(modifier: Modifier.Companion, tagModel: TagModel.Toptags.Tag) {
+fun GenreTile(
+    modifier: Modifier.Companion,
+    tagModel: TagModel.Toptags.Tag,
+    navHostController: NavHostController
+) {
     var selected by remember {
         mutableStateOf(false)
     }
     FilterChip(
         selected = selected,
-
         modifier = modifier
             .padding(bottom = 10.dp)
             .height(30.dp)
@@ -156,7 +163,11 @@ fun GenreTile(modifier: Modifier.Companion, tagModel: TagModel.Toptags.Tag) {
             selectedContainerColor = MaterialTheme.colorScheme.primary,
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
-        onClick = { selected = !selected },
+        onClick = {
+            Constants.tag=tagModel.name
+            navHostController.navigate("${Screen.TagInfoScreen.route}/${tagModel.name}") {
+            launchSingleTop = true
+        }},
         label = {
             Row(
                 Modifier.fillMaxSize(),

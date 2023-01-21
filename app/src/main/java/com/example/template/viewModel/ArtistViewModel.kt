@@ -4,6 +4,7 @@ import com.example.template.utils.DispatcherProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.template.remote.ApiService
+import com.example.template.repository.ArtistRepository
 import com.example.template.utils.artistScreenState.ArtistInfoState
 import com.example.template.utils.artistScreenState.ArtistState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel 
 class ArtistViewModel @Inject constructor(
-    val apiService: ApiService,
-    val dispatcherProvider: DispatcherProvider
+    private val artistRepository: ArtistRepository,
+    private val dispatcherProvider: DispatcherProvider
 ):ViewModel (){
     private val _getTagState = MutableStateFlow<ArtistState>(ArtistState.Empty)
     private val getTagState = _getTagState.asStateFlow()
@@ -28,120 +29,36 @@ class ArtistViewModel @Inject constructor(
     private val _getArtistInfoState = MutableStateFlow<ArtistInfoState>(ArtistInfoState.Empty)
     private val getArtistInfoState = _getArtistInfoState.asStateFlow()
 
-    suspend fun getTag(artist:String): StateFlow<ArtistState> {
+     fun getTag(artist:String): StateFlow<ArtistState> {
         viewModelScope.launch(dispatcherProvider.io) {
-            try {
-                _getTagState.value = ArtistState.Loading
-                var response = apiService.getArtistTag(artist = artist)
-                if (response.isSuccessful) {
-                    response.body().let {
-                        it?.let {
-                            var list = it.toptags.tag
-                            _getTagState.value = ArtistState.Success(list)
-                        }
-                    }
-                } else {
-                    try {
-                        var jObjError = JSONObject(response.errorBody()!!.string())
-                        _getTagState.value = ArtistState.Error(jObjError.getJSONObject("error").toString())
-                    } catch (e: Exception) {
-                        _getTagState.value =     ArtistState.Error(e.localizedMessage)
-                    }
-                }
-            } catch (e: Exception) {
-                _getTagState.value =   ArtistState.Error(e.localizedMessage)
-            }
-
+            _getTagState.value=artistRepository.getTag(artist).value
         }
 
         return getTagState
     }
 
 
-    suspend fun getAlbum(artist:String): StateFlow<ArtistState> {
+     fun getAlbum(artist:String): StateFlow<ArtistState> {
         viewModelScope.launch(dispatcherProvider.io) {
-            try {
-                _getAlbumState.value = ArtistState.Loading
-                var response = apiService.getArtistAlbum(artist =artist )
-                if (response.isSuccessful) {
-                    response.body().let {
-                        it?.let {
-                            var list = it.topalbums.album
-                            _getAlbumState.value = ArtistState.Success(list)
-                        }
-                    }
-                } else {
-                    try {
-                        var jObjError = JSONObject(response.errorBody()!!.string())
-                        _getAlbumState.value =
-                            ArtistState.Error(jObjError.getJSONObject("error").toString())
-                    } catch (e: Exception) {
-                        _getAlbumState.value = ArtistState.Error(e.localizedMessage)
-                    }
-                }
-            } catch (e: Exception) {
-                _getAlbumState.value = ArtistState.Error(e.localizedMessage)
-            }
+          _getAlbumState.value=artistRepository.getAlbum(artist).value
         }
 
         return getAlbumState
     }
 
 
-    suspend fun getTracks(artist:String): StateFlow<ArtistState> {
+     fun getTracks(artist:String): StateFlow<ArtistState> {
         viewModelScope.launch(dispatcherProvider.io) {
-            try {
-                _getTrackState.value = ArtistState.Loading
-                var response = apiService.getArtistTracks(artist = artist)
-                if (response.isSuccessful) {
-                    response.body().let {
-                        it?.let {
-                            var list = it.toptracks.track
-                            _getTrackState.value = ArtistState.Success(list)
-                        }
-                    }
-                } else {
-                    try {
-                        var jObjError = JSONObject(response.errorBody()!!.string())
-                        _getTrackState.value =
-                            ArtistState.Error(jObjError.getJSONObject("error").toString())
-                    } catch (e: Exception) {
-                        _getTrackState.value = ArtistState.Error(e.localizedMessage)
-                    }
-                }
-            } catch (e: Exception) {
-                _getTrackState.value = ArtistState.Error(e.localizedMessage)
-            }
+            _getTrackState.value=artistRepository.getTracks(artist).value
         }
 
         return getTracksState
     }
 
 
-    suspend fun getInfo(artist: String,album:String): StateFlow<ArtistInfoState> {
+     fun getInfo(artist: String): StateFlow<ArtistInfoState> {
         viewModelScope.launch(dispatcherProvider.io) {
-            try {
-                 _getArtistInfoState.value = ArtistInfoState.Loading
-                var response = apiService.getArtistInfo(artist = artist )
-                if (response.isSuccessful) {
-                    response.body().let {
-                        it?.let {
-                            var list = it
-                             _getArtistInfoState.value = ArtistInfoState.Success(list)
-                        }
-                    }
-                } else {
-                    try {
-                        var jObjError = JSONObject(response.errorBody()!!.string())
-                         _getArtistInfoState.value =
-                            ArtistInfoState.Error(jObjError.getJSONObject("error").toString())
-                    } catch (e: Exception) {
-                         _getArtistInfoState.value = ArtistInfoState.Error(e.localizedMessage)
-                    }
-                }
-            } catch (e: Exception) {
-                 _getArtistInfoState.value = ArtistInfoState.Error(e.localizedMessage)
-            }
+            _getArtistInfoState.value=artistRepository.getInfo(artist).value
         }
 
         return getArtistInfoState

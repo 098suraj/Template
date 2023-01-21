@@ -4,6 +4,7 @@ import com.example.template.utils.DispatcherProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.template.remote.ApiService
+import com.example.template.repository.AlbumRepository
 import com.example.template.utils.albumScreenStates.AlbumInfoState
 import com.example.template.utils.albumScreenStates.AlbumTagState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AlbumViewModel @Inject constructor(
-    val apiService: ApiService,
+    val albumRepository: AlbumRepository,
     val dispatcherProvider: DispatcherProvider
 ):ViewModel() {
     private val _getAlbumInfoState = MutableStateFlow<AlbumInfoState>(AlbumInfoState.Empty)
@@ -27,62 +28,20 @@ class AlbumViewModel @Inject constructor(
 
 
 
-    suspend fun getAlbumTag(album :String,artist:String): StateFlow<AlbumTagState> {
+     fun getAlbumTag(album :String,artist:String): StateFlow<AlbumTagState> {
         viewModelScope.launch(dispatcherProvider.io) {
-            try {
-                _getAlbumTagState.value =AlbumTagState.Loading
-                var response = apiService.getAlbumTag(album = album, artist =artist )
-                if (response.isSuccessful) {
-                    response.body().let {
-                        it?.let {
-                            var list = it.toptags.tag
-                            _getAlbumTagState.value =AlbumTagState.Success(list)
-                        }
-                    }
-                } else {
-                    try {
-                        var jObjError = JSONObject(response.errorBody()!!.string())
-                       _getAlbumTagState.value =AlbumTagState.Error(jObjError.getJSONObject("error").toString())
-                    } catch (e: Exception) {
-                        _getAlbumTagState.value =   AlbumTagState.Error(e.localizedMessage)
-                    }
-                }
-            } catch (e: Exception) {
-                _getAlbumTagState.value =   AlbumTagState.Error(e.localizedMessage)
-            }
-
+          _getAlbumTagState.value=albumRepository.getAlbumTag(album,artist).value
         }
 
         return getAlbumTagState
     }
 
 
-    suspend fun getInfo(album :String,artist:String): StateFlow<AlbumInfoState> {
+     fun getInfo(album :String,artist:String): StateFlow<AlbumInfoState> {
         viewModelScope.launch(dispatcherProvider.io) {
-            try {
-               _getAlbumInfoState.value =AlbumInfoState.Loading
-                var response = apiService.getAlbumInfo(album =album , artist =artist )
-                if (response.isSuccessful) {
-                    response.body().let {
-                        it?.let {
-                            var list = it
-                           _getAlbumInfoState.value =AlbumInfoState.Success(list)
-                        }
-                    }
-                } else {
-                    try {
-                        var jObjError = JSONObject(response.errorBody()!!.string())
-                       _getAlbumInfoState.value =
-                           AlbumInfoState.Error(jObjError.getJSONObject("error").toString())
-                    } catch (e: Exception) {
-                       _getAlbumInfoState.value =AlbumInfoState.Error(e.localizedMessage)
-                    }
-                }
-            } catch (e: Exception) {
-               _getAlbumInfoState.value =AlbumInfoState.Error(e.localizedMessage)
-            }
-        }
+            _getAlbumInfoState.value= albumRepository.getInfo(album,artist).value
 
+        }
         return getAlbumInfoState
     }
 }

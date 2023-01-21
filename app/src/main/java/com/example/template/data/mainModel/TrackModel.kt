@@ -1,83 +1,74 @@
 package com.example.template.data.mainModel
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class TrackModel(
-    @SerialName("tracks")
+    @SerializedName("tracks")
     val tracks: Tracks
 ) {
-    @Serializable
     data class Tracks(
-        @SerialName("@attr")
+        @SerializedName("@attr")
         val attr: Attr,
-        @SerialName("track")
+        @SerializedName("track")
         val track: List<Track>
     ) {
-        @Serializable
         data class Attr(
-            @SerialName("page")
+            @SerializedName("page")
             val page: String,
-            @SerialName("perPage")
+            @SerializedName("perPage")
             val perPage: String,
-            @SerialName("tag")
+            @SerializedName("tag")
             val tag: String,
-            @SerialName("total")
+            @SerializedName("total")
             val total: String,
-            @SerialName("totalPages")
+            @SerializedName("totalPages")
             val totalPages: String
         )
 
-        @Serializable
         data class Track(
-            @SerialName("artist")
+            @SerializedName("artist")
             val artist: Artist,
-            @SerialName("@attr")
+            @SerializedName("@attr")
             val attr: Attr,
-            @SerialName("duration")
+            @SerializedName("duration")
             val duration: String,
-            @SerialName("image")
+            @SerializedName("image")
             val image: List<Image>,
-            @SerialName("mbid")
+            @SerializedName("mbid")
             val mbid: String,
-            @SerialName("name")
+            @SerializedName("name")
             val name: String,
-            @SerialName("streamable")
+            @SerializedName("streamable")
             val streamable: Streamable,
-            @SerialName("url")
+            @SerializedName("url")
             val url: String
         ) {
-            @Serializable
             data class Artist(
-                @SerialName("mbid")
+                @SerializedName("mbid")
                 val mbid: String,
-                @SerialName("name")
+                @SerializedName("name")
                 val name: String,
-                @SerialName("url")
+                @SerializedName("url")
                 val url: String
             )
 
-            @Serializable
             data class Attr(
-                @SerialName("rank")
+                @SerializedName("rank")
                 val rank: String
             )
 
-            @Serializable
             data class Image(
-                @SerialName("size")
+                @SerializedName("size")
                 val size: String,
-                @SerialName("#text")
+                @SerializedName("#text")
                 val text: String
             )
 
-            @Serializable
             data class Streamable(
-                @SerialName("fulltrack")
+                @SerializedName("fulltrack")
                 val fulltrack: String,
-                @SerialName("#text")
+                @SerializedName("#text")
                 val text: String
             )
         }

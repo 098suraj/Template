@@ -4,4 +4,6 @@ object Constants {
  const val BASE_URL="https://ws.audioscrobbler.com/"
  var tag=""
  var mbid=""
+ var album=""
+ var artist=""
 }

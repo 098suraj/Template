@@ -1,110 +1,100 @@
 package com.example.template.data.albumModel
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class AlbumInfoModel(
-    @SerialName("album")
+    @SerializedName("album")
     val album: Album
 ) {
-    @Serializable
     data class Album(
-        @SerialName("artist")
+        @SerializedName("artist")
         val artist: String,
-        @SerialName("image")
+        @SerializedName("image")
         val image: List<Image>,
-        @SerialName("listeners")
+        @SerializedName("listeners")
         val listeners: String,
-        @SerialName("name")
+        @SerializedName("mbid")
+        val mbid: String,
+        @SerializedName("name")
         val name: String,
-        @SerialName("playcount")
+        @SerializedName("playcount")
         val playcount: String,
-        @SerialName("tags")
+        @SerializedName("tags")
         val tags: Tags,
-        @SerialName("tracks")
+        @SerializedName("tracks")
         val tracks: Tracks,
-        @SerialName("url")
+        @SerializedName("url")
         val url: String,
-        @SerialName("wiki")
+        @SerializedName("wiki")
         val wiki: Wiki
     ) {
-        @Serializable
         data class Image(
-            @SerialName("size")
+            @SerializedName("size")
             val size: String,
-            @SerialName("#text")
+            @SerializedName("#text")
             val text: String
         )
 
-        @Serializable
         data class Tags(
-            @SerialName("tag")
+            @SerializedName("tag")
             val tag: List<Tag>
         ) {
-            @Serializable
             data class Tag(
-                @SerialName("name")
+                @SerializedName("name")
                 val name: String,
-                @SerialName("url")
+                @SerializedName("url")
                 val url: String
             )
         }
 
-        @Serializable
         data class Tracks(
-            @SerialName("track")
+            @SerializedName("track")
             val track: List<Track>
         ) {
-            @Serializable
             data class Track(
-                @SerialName("artist")
+                @SerializedName("artist")
                 val artist: Artist,
-                @SerialName("@attr")
+                @SerializedName("@attr")
                 val attr: Attr,
-                @SerialName("duration")
-                val duration: Int?,
-                @SerialName("name")
+                @SerializedName("duration")
+                val duration: Int,
+                @SerializedName("name")
                 val name: String,
-                @SerialName("streamable")
+                @SerializedName("streamable")
                 val streamable: Streamable,
-                @SerialName("url")
+                @SerializedName("url")
                 val url: String
             ) {
-                @Serializable
                 data class Artist(
-                    @SerialName("mbid")
+                    @SerializedName("mbid")
                     val mbid: String,
-                    @SerialName("name")
+                    @SerializedName("name")
                     val name: String,
-                    @SerialName("url")
+                    @SerializedName("url")
                     val url: String
                 )
 
-                @Serializable
                 data class Attr(
-                    @SerialName("rank")
+                    @SerializedName("rank")
                     val rank: Int
                 )
 
-                @Serializable
                 data class Streamable(
-                    @SerialName("fulltrack")
+                    @SerializedName("fulltrack")
                     val fulltrack: String,
-                    @SerialName("#text")
+                    @SerializedName("#text")
                     val text: String
                 )
             }
         }
 
-        @Serializable
         data class Wiki(
-            @SerialName("content")
+            @SerializedName("content")
             val content: String,
-            @SerialName("published")
+            @SerializedName("published")
             val published: String,
-            @SerialName("summary")
+            @SerializedName("summary")
             val summary: String
         )
     }

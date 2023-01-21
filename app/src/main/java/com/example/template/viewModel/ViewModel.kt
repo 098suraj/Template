@@ -29,8 +29,15 @@ class MainViewModel @Inject constructor(
     private val getArtistState = _getArtistState.asStateFlow()
     private val _getInfoState = MutableStateFlow<InfoState>(InfoState.Empty)
     private val getInfoState = _getInfoState.asStateFlow()
+    private val isExpanded=MutableStateFlow<Boolean>(false)
 
+    fun getExpanded(): MutableStateFlow<Boolean> {
+        return isExpanded
+    }
 
+    fun setExpanded(){
+        isExpanded.value=!isExpanded.value
+    }
     fun getTag(): StateFlow<AppState> {
         viewModelScope.launch(dispatcherProvider.io) {
           _getTagState.value=mainRepository.getTag().value
@@ -39,35 +46,35 @@ class MainViewModel @Inject constructor(
     }
 
 
-    fun getAlbum(): StateFlow<AppState> {
+    fun getAlbum(tag:String): StateFlow<AppState> {
         viewModelScope.launch(dispatcherProvider.io) {
-            _getAlbumState.value= mainRepository.getAlbum().value
+            _getAlbumState.value= mainRepository.getAlbum(tag=tag).value
         }
         return getAlbumState
     }
 
 
-    fun getTracks(): StateFlow<AppState> {
+    fun getTracks(tag: String): StateFlow<AppState> {
         viewModelScope.launch(dispatcherProvider.io) {
-          _getTrackState.value=mainRepository.getTracks().value
+          _getTrackState.value=mainRepository.getTracks(tag=tag).value
         }
 
         return getTracksState
     }
 
 
-    fun getArtist(): StateFlow<AppState> {
+    fun getArtist(tag: String): StateFlow<AppState> {
         viewModelScope.launch(dispatcherProvider.io) {
-          _getArtistState.value=mainRepository.getArtist().value
+          _getArtistState.value=mainRepository.getArtist(tag=tag).value
         }
 
         return getArtistState
     }
 
 
-    fun getInfo(): StateFlow<InfoState> {
+    fun getInfo(tag: String): StateFlow<InfoState> {
         viewModelScope.launch(dispatcherProvider.io) {
-           _getInfoState.value=getInfoState.value
+           _getInfoState.value=mainRepository.getInfo(tag=tag).value
         }
 
         return getInfoState

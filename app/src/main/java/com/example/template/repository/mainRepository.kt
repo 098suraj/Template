@@ -27,7 +27,6 @@ class MainRepository @Inject constructor(
                 response.body().let {
                     it?.let {
                         var list = it.toptags.tag
-                        Timber.tag("GetTag").d(list.size.toString())
                         _getTagState.value = AppState.Success(list)
                     }
 
@@ -55,11 +54,11 @@ class MainRepository @Inject constructor(
     }
 
 
-    suspend fun getAlbum(): MutableStateFlow<AppState> {
+    suspend fun getAlbum(tag:String): MutableStateFlow<AppState> {
 
         try {
             _getAlbumState.value = AppState.Loading
-            var response = apiService.getAlbum()
+            var response = apiService.getAlbum(tag=tag)
             if (response.isSuccessful) {
                 response.body().let {
                     it?.let {
@@ -85,15 +84,16 @@ class MainRepository @Inject constructor(
     }
 
 
-    suspend fun getTracks(): MutableStateFlow<AppState> {
+    suspend fun getTracks(tag: String): MutableStateFlow<AppState> {
 
         try {
             _getTrackState.value = AppState.Loading
-            var response = apiService.getTracks()
+            var response = apiService.getTracks(tag=tag)
             if (response.isSuccessful) {
                 response.body().let {
                     it?.let {
                         var list = it.tracks.track
+
                         _getTrackState.value = AppState.Success(list)
                     }
                 }
@@ -114,10 +114,10 @@ class MainRepository @Inject constructor(
     }
 
 
-    suspend fun getArtist(): MutableStateFlow<AppState> {
+    suspend fun getArtist(tag: String): MutableStateFlow<AppState> {
         try {
             _getArtistState.value = AppState.Loading
-            var response = apiService.getArtist()
+            var response = apiService.getArtist(tag=tag)
             if (response.isSuccessful) {
                 response.body().let {
                     it?.let {
@@ -143,10 +143,10 @@ class MainRepository @Inject constructor(
     }
 
 
-    suspend fun getInfo(): MutableStateFlow<InfoState> {
+    suspend fun getInfo(tag: String): MutableStateFlow<InfoState> {
         try {
             _getInfoState.value = InfoState.Loading
-            var response = apiService.getInfo()
+            var response = apiService.getInfo(tag=tag)
             if (response.isSuccessful) {
                 response.body().let {
                     it?.let {

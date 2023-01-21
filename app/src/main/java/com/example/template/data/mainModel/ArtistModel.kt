@@ -1,62 +1,55 @@
 package com.example.template.data.mainModel
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 
-@Serializable
 data class ArtistModel(
-    @SerialName("topartists")
+    @SerializedName("topartists")
     val topartists: Topartists
 ) {
-    @Serializable
     data class Topartists(
-        @SerialName("artist")
+        @SerializedName("artist")
         val artist: List<Artist>,
-        @SerialName("@attr")
+        @SerializedName("@attr")
         val attr: Attr
     ) {
-        @Serializable
         data class Artist(
-            @SerialName("@attr")
+            @SerializedName("@attr")
             val attr: Attr,
-            @SerialName("image")
+            @SerializedName("image")
             val image: List<Image>,
-            @SerialName("mbid")
+            @SerializedName("mbid")
             val mbid: String?,
-            @SerialName("name")
+            @SerializedName("name")
             val name: String,
-            @SerialName("streamable")
+            @SerializedName("streamable")
             val streamable: String,
-            @SerialName("url")
+            @SerializedName("url")
             val url: String
         ) {
-            @Serializable
             data class Attr(
-                @SerialName("rank")
+                @SerializedName("rank")
                 val rank: String
             )
 
-            @Serializable
             data class Image(
-                @SerialName("size")
+                @SerializedName("size")
                 val size: String,
-                @SerialName("#text")
+                @SerializedName("#text")
                 val text: String
             )
         }
 
-        @Serializable
         data class Attr(
-            @SerialName("page")
+            @SerializedName("page")
             val page: String,
-            @SerialName("perPage")
+            @SerializedName("perPage")
             val perPage: String,
-            @SerialName("tag")
+            @SerializedName("tag")
             val tag: String,
-            @SerialName("total")
+            @SerializedName("total")
             val total: String,
-            @SerialName("totalPages")
+            @SerializedName("totalPages")
             val totalPages: String
         )
     }
