@@ -42,7 +42,7 @@
         "androidx.lifecycle:*",
         "androidx.hilt:*",
         
-        
-    }
+        ],
+    },
   ]
 }
