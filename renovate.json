@@ -33,7 +33,7 @@
       "matchPackagePatterns":[
         "org.jetbrains.kotlinx:*",
         "io.coil-kt:*",
-        "com.jakewharton.timber:*"
+        "com.jakewharton.timber:*",
         "com.squareup.okhttp3:*",
         "com.squareup.retrofit2:*",
         "com.google.dagger:*",
