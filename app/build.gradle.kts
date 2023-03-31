@@ -4,8 +4,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.multiplatform.pm20") version "1.8.20"
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.kapt)
+   
 }
 
 android {
