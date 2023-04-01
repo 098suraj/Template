@@ -2,12 +2,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+//    alias(libs.plugins.jvm)
     alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.ksp)
-    id("org.jetbrains.kotlin.multiplatform.pm20") version "1.8.20"
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.kapt)
-   
+
 }
 
 android {
@@ -37,7 +37,7 @@ android {
 
 
     buildTypes {
-        getByName("debug"){
+        getByName("debug") {
 
         }
         getByName("release") {
@@ -49,15 +49,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
+
         compose = true
-        dataBinding=true
+        dataBinding = true
         aidl = false
         buildConfig = true
         renderScript = false
@@ -66,10 +67,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+    packaging.resources {
+        excludes += "/META-INF/{AL2.0,LGPL2.1}"
+
     }
 
 }
