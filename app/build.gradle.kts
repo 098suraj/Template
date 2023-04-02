@@ -1,12 +1,12 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-//    alias(libs.plugins.jvm)
+    id("com.android.application")
+    id("org.jmailen.kotlinter")
+    id("kotlin-android")
     alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlin.kapt)
+    id("org.jetbrains.kotlin.kapt")
 
 }
 
@@ -75,7 +75,7 @@ android {
 }
 
 dependencies {
-    //Compose
+    //serialization
     implementation(libs.kotlin.serialization.json)
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
@@ -104,7 +104,7 @@ dependencies {
     // Compose
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
-
+    debugImplementation(composeBom)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
@@ -117,6 +117,8 @@ dependencies {
     // coil
     implementation(libs.io.coil.kt.coil)
     implementation(libs.io.coil.kt.coil.compose)
+    //kotlinter and deket
+
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
     // Instrumented tests

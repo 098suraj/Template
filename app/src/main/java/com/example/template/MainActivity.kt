@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
@@ -51,33 +50,32 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     var text by remember { mutableStateOf(TextFieldValue("")) }
     Column(
-        modifier
+        Modifier
             .fillMaxSize()
             .padding(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = CenterHorizontally
     ) {
         Text(
-            modifier = modifier.weight(1.0f),
+            modifier = Modifier.weight(1.0f),
             text = "Hello $name!",
             fontSize = 50.sp,
             textAlign = TextAlign.Center,
-            fontFamily = FontFamily.SansSerif,
+            fontFamily = FontFamily.SansSerif
         )
         Button(
-            modifier = modifier.weight(1.0f),
+            modifier = Modifier.weight(1.0f),
             onClick = { /*TODO*/ },
-            shape = RoundedCornerShape(16.dp),
-
+            shape = RoundedCornerShape(16.dp)
         ) {
             Text(
                 text = "Hello $name!",
                 fontSize = 50.sp,
                 textAlign = TextAlign.Center,
-                fontFamily = FontFamily.SansSerif,
+                fontFamily = FontFamily.SansSerif
             )
         }
         TextField(
-            modifier = modifier
+            modifier = Modifier
                 .align(CenterHorizontally)
                 .weight(1.0f),
             value = text,
@@ -85,19 +83,17 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 text = it
             },
 
-            label = {  },
+            label = { },
 
-            placeholder = { Text(text = "Your Placeholder/Hint") },
+            placeholder = { Text(text = "Your Placeholder/Hint") }
         )
-
     }
-
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     TemplateTheme {
-        Greeting("Android")
+        Greeting("Android", Modifier)
     }
 }

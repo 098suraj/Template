@@ -22,7 +22,10 @@ okhttpVersion = '5.0.0-alpha.11'
 timberVersion = '5.0.1'
 coilVersion = '2.3.0'
 kotlinSerialization = "1.5.0"
-
+espresso-core = "3.5.1"
+appcompat = "1.6.1"
+material = "1.8.0"
+kotlinter="3.14.0"
 [libraries]
 androidx-compose-bom = "androidx.compose:compose-bom:2023.03.00"
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -59,13 +62,13 @@ com-jakewharton-timber = { module = "com.jakewharton.timber:timber", version.ref
 io-coil-kt-coil = { module = "io.coil-kt:coil", version.ref = "coilVersion" }
 io-coil-kt-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilVersion" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 [plugins]
-android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
-android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-mpp = { id = "org.jetbrains.kotlin.multiplatform.pm20", version.ref = "kotlin" }
 jvm = { id = "jvm", version.ref = "kotlin" }
+kotlinter={id="org.jmailen.kotlinter",version.ref="kotlinter"}
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-gradle = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
