@@ -2,7 +2,7 @@
 buildscript {
     extra.apply {
         set("detektVersion", "1.21.0")
-        set("kotlinVersion", "1.8.10")
+        set("kotlinVersion", "1.9.23")
           }
     repositories {
         google()
