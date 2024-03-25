@@ -14,7 +14,7 @@ detekt {
 
     dependencies {
         //noinspection UseTomlInstead
-        detektPlugins "io.nlopez.compose.rules:detekt:0.1.5"
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+        detektPlugins "io.nlopez.compose.rules:detekt:0.3.12"
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.6")
     }
 }
